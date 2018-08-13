@@ -15,5 +15,19 @@ namespace UnitTest
 
             Assert.AreEqual("OyewoleOni", rvalue);
         }
+
+        [TestMethod]
+        public void BooleanTestMethod()
+        {
+            //Arrange test
+            TestClass objtest = new TestClass();
+            Boolean result;
+
+            //Act test
+            result = objtest.testFunction();
+
+            //Assert test
+            Assert.AreEqual(true, result);
+        }
     }
 }
