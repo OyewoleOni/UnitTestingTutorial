@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MathClass.cs" />
+    <Compile Include="FileProcess.cs" />
     <Compile Include="TestClass.cs" />
     <Compile Include="StringHandling.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
