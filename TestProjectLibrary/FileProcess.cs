@@ -11,7 +11,7 @@ namespace TestProjectLibrary
     {
         public bool FileExist(string fileName)
         {
-            if(string.IsNullOrEmpty(fileName))
+            if (string.IsNullOrEmpty(fileName))
             {
                 throw new ArgumentNullException("fileName");
             }
