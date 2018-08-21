@@ -12,7 +12,54 @@ namespace UnitTest
         private const string BAD_FILE_NAME = @"C:BadFileName.bad";
         private string _GoodFileName;
 
+        #region Class Initialize and Cleanup
+        [ClassInitialize]
+        public static void ClassInitialize(TestContext tc)
+        {
+            tc.WriteLine("In the class Initialize");
+        }
+
+        [ClassCleanup]
+        public static void ClassCleanup()
+        {
+           
+        }
+        #endregion
+
+        #region Test Initialization and Cleanup
+        [TestInitialize]
+        public void TestInitalize()
+        {
+            if (TestContext.TestName == "FileNameDoesExist")
+            {
+                SetGoodFileName();
+
+                if (!string.IsNullOrEmpty(_GoodFileName))
+                {
+                    TestContext.WriteLine("Creating File: " + _GoodFileName);
+                    File.AppendAllText(_GoodFileName, "Some Text");
+                }
+            }
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            if (TestContext.TestName == "FileNameDoesExist")
+            {
+                if (!string.IsNullOrEmpty(_GoodFileName))
+                {
+                    TestContext.WriteLine("Deleting File: " + _GoodFileName);
+                    File.Delete(_GoodFileName);
+                }
+            }
+        }
+
+        #endregion
+
         public TestContext TestContext { get; set; }
+
+
 
         private void SetGoodFileName()
         {
@@ -32,14 +79,16 @@ namespace UnitTest
 
             bool fromCall;
 
-            SetGoodFileName();
-            TestContext.WriteLine("Creating the file: " + _GoodFileName);
-            File.AppendAllText(_GoodFileName, "Some Text");
+           
+
+            //TestContext.WriteLine("Creating the file: " + _GoodFileName);
             TestContext.WriteLine("Testing the file: " + _GoodFileName);
 
             fromCall = fp.FileExist(_GoodFileName);
-            File.Delete(_GoodFileName);
-            TestContext.WriteLine("Deleting the file: " + _GoodFileName);
+
+            //File.Delete(_GoodFileName);
+            //TestContext.WriteLine("Deleting the file: " + _GoodFileName);
+
             Assert.IsTrue(fromCall);
 
 
