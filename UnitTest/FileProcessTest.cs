@@ -30,7 +30,7 @@ namespace UnitTest
         [TestInitialize]
         public void TestInitalize()
         {
-            if (TestContext.TestName == "FileNameDoesExist")
+            if (TestContext.TestName.StartsWith("FileNameDoesExist"))
             {
                 SetGoodFileName();
 
@@ -45,7 +45,7 @@ namespace UnitTest
         [TestCleanup]
         public void TestCleanup()
         {
-            if (TestContext.TestName == "FileNameDoesExist")
+            if (TestContext.TestName.StartsWith("FileNameDoesExist"))
             {
                 if (!string.IsNullOrEmpty(_GoodFileName))
                 {
@@ -73,6 +73,28 @@ namespace UnitTest
         }
 
         [TestMethod]
+        [Timeout(3000)]
+        public void SimulateTime()
+        {
+            System.Threading.Thread.Sleep(4000);
+        }
+
+        [TestMethod]
+        public void FileNameDoesExistSimpleMessage()
+        {
+            FileProcess fp = new FileProcess();
+            bool fromCall;
+
+            fromCall = fp.FileExist(_GoodFileName);
+
+            Assert.IsFalse(fromCall, "File Does not Exist.");
+        }
+
+        [TestMethod]
+        [Description("Check to see if a file do exist.")]
+        [Owner("OyewoleOni")]
+        [Priority(0)]
+        //[Ignore()]
         public void FileNameDoesExist()
         {
             FileProcess fp = new FileProcess();
@@ -94,6 +116,9 @@ namespace UnitTest
 
         }
         [TestMethod]
+        [Description("Check to see if a file does not exist.")]
+        [Owner("OyewoleOni")]
+        [Priority(0)]
         public void FileNameDoesNotExist()
         {
             FileProcess fp = new FileProcess();
@@ -107,6 +132,7 @@ namespace UnitTest
         }
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
+        [Priority(1)]
         public void FileNameNullorEmpty_ThrowsArgumentNullException()
         {
             FileProcess fp = new FileProcess();
@@ -115,7 +141,7 @@ namespace UnitTest
         }
 
         [TestMethod]
-       
+        [Priority(1)]
         public void FileNameNullorEmpty_ThrowsArgumentNullException_UsingTryCatch()
         {
             FileProcess fp = new FileProcess();
