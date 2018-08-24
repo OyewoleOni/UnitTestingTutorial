@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestProjectLibrary;
+using TestProjectLibrary.PersonsClass;
 
 namespace UnitTest
 {
@@ -60,6 +61,29 @@ namespace UnitTest
         #endregion
 
         #region InstanceOfTypeTest
+        [TestMethod]
+
+        public void InstanceOfTypeTest()
+        {
+
+            PersonManager mgr = new PersonManager();
+            Person per;
+
+            per = mgr.CreatePerson("Oyewole", "Oni", true);
+            Assert.IsInstanceOfType(per, typeof(Supervisor));
+        }
+        #endregion
+        #region IsNullTest
+        [TestMethod]
+        public void IsNullTest()
+        {
+
+            PersonManager mgr = new PersonManager();
+            Person per;
+
+            per = mgr.CreatePerson("", "Oni", true);
+            Assert.IsNull(per);
+        }
 
         #endregion
     }
