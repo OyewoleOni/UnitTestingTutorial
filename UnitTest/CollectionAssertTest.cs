@@ -79,19 +79,19 @@ namespace UnitTest
 
         }
 
-        [TestMethod]
-        public void IsCollectionOfTypeTest()
-        {
-            PersonManager mgr = new PersonManager();
+        //[TestMethod]
+        //public void IsCollectionOfTypeTest()
+        //{
+        //    PersonManager mgr = new PersonManager();
 
             
-            List<Person> peopleActual = new List<Person>();
+        //    List<Person> peopleActual = new List<Person>();
 
-            peopleActual = mgr.GetSupervisor();
+        //    peopleActual = mgr.GetSupervisor();
 
-            //Check for same object but in any order
-            CollectionAssert.AllItemsAreInstancesOfType(peopleActual, typeof(Supervisor));
+        //    //Check for same object but in any order
+        //    CollectionAssert.AllItemsAreInstancesOfType(peopleActual, typeof(Supervisor));
 
-        }
+        //}
     }
 }

@@ -59,7 +59,41 @@ namespace UnitTest
 
         public TestContext TestContext { get; set; }
 
+        [TestMethod]
+        [DataSource("System.Data.SqlClient",
+            "Server=Localhost;Database=Sandbox;Integrated Security=Yes",
+            "tests.FileProcessTest",
+            DataAccessMethod.Sequential)]
+        public void FileExistTestFromDB()
+        {
+            FileProcess fp = new FileProcess();
 
+            string fileName;
+            bool expectedValue;
+            bool causesException;
+            bool fromCall;
+
+            //Get values from data row
+
+            fileName = TestContext.DataRow["FileName"].ToString();
+            expectedValue = Convert.ToBoolean(TestContext.DataRow["ExpectedValue"]);
+            causesException = Convert.ToBoolean(TestContext.DataRow["CausesException"]);
+
+            try
+            {
+                fromCall = fp.FileExist(fileName);
+                Assert.AreEqual(expectedValue, fromCall, "File Name: " + fileName + " has failed it's existence test in test: FileExistsTestFromDB()");
+            }
+            catch (AssertFailedException ex)
+            {
+
+                throw ex;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                Assert.IsTrue(causesException);
+            }
+        }
 
         private void SetGoodFileName()
         {
